@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Foundry USD Evolution Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "bg-main": "#FFFFFF",
+                        "surface-card": "#FFFFFF",
+                        "border-dim": "#E5E7EB",
+                        "primary": "#2b8cee",
+                        "nuke": "#fcb434",
+                        "katana": "#fcb434", 
+                        "mari": "#fcb434",
+                        "brand-katana": "#fcb434"
+                    },
+                    fontFamily: {
+                        "sans": ["Avenir", "Inter", "sans-serif"],
+                        "display": ["Avenir", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #E5E7EB 1px, transparent 1px), linear-gradient(to bottom, #E5E7EB 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.6' },
+                            '50%': { opacity: '0.3' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #FFFFFF;
+            color: #1F2937;
+        }
+        .text-version-highlight {
+            color: #fcb434 !important;
+        }
+        .timeline-wire {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: #E5E7EB;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .timeline-wire-active {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100%; 
+            background: linear-gradient(to bottom, transparent, #f5b026, #e3e300, #c43c3c, #2b8cee, transparent);
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0.6;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card-base {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .card-base:hover {
+            transform: translateY(-4px);
+            border-color: #D1D5DB;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+        .card-nuke:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .card-katana:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .card-mari:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .year-marker {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #F3F4F6;
+            font-size: 5rem;
+            line-height: 1;
+            user-select: none;
+            transition: color 0.5s ease;
+            position: relative;
+            z-index: 2; /* Ensure it is above the wire */
+            background-color: #FFFFFF; /* Add background to hide the wire underneath */
+            padding: 0 10px; /* Add some padding so the wire doesn't touch the text */
+        }
+        .group:hover .year-marker {
+            color: #E5E7EB;
+        }
+        .milestone-dot {
+            width: 12px;
+            height: 12px;
+            background: #FFFFFF;
+            border: 2px solid #9CA3AF;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .group:hover .milestone-dot {
+            background: #FFFFFF;
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 15px currentColor;
+            border-color: currentColor;
+        }
+        .node-connector {
+            display: none;
+            position: absolute;
+            top: 50%;
+            width: 32px;
+            height: 3px;
+            background: #FCB434;
+            z-index: 5;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+        .right-aligned .node-connector { left: auto; right: 0; transform: translateX(100%); }
+        .left-aligned .node-connector { right: auto; left: 0; transform: translateX(-100%); }
+        .group:hover .node-connector {
+            width: 48px;
+            background: #FCB434;
+        }::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FFFFFF; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+        .nuke-btn {
+            background: linear-gradient(180deg, #F3F4F6 0%, #E5E7EB 100%);
+            border: 1px solid #D1D5DB;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .nuke-btn:hover {
+            background: linear-gradient(180deg, #E5E7EB 0%, #D1D5DB 100%);
+            color: #111827;
+        }
+        .nuke-btn:active {
+            background: #E5E7EB;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }.filter-btn {
+            background: rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: #4B5563;
+        }
+        .filter-btn:hover {
+            background: rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+            color: #111827;
+        }
+        .filter-btn-nuke:hover, .filter-btn-nuke.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+        .filter-btn-katana:hover, .filter-btn-katana.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+        .filter-btn-mari:hover, .filter-btn-mari.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+
+        @media (min-width: 1024px) {
+            .node-connector {
+                width: 48px;
+            }
+            .group:hover .node-connector {
+                width: 64px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .milestone-dot {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+<body class="font-sans antialiased selection:bg-katana selection:text-black overflow-x-hidden">
+
+<header class="relative min-h-[30vh] flex items-center justify-center overflow-hidden border-b border-border-dim">
+    <div class="relative z-20 container mx-auto px-6 text-center max-w-4xl">
+        <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tighter leading-none text-gray-900 font-display" style="padding-top: 20px;">
+            USD X Foundry <span class="text-transparent bg-clip-text bg-gradient-to-r from-katana via-gray-800 to-primary"></span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+            VFX 오픈 파이프라인의 핵심: Nuke, Katana, Mari의 USD 통합 연대기.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+            <button class="filter-btn filter-btn-all px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest hover:text-black border-transparent hover:border-black/10" onclick="window.location.href = 'index.html'">
+                <img src="images/F-dot.svg" alt="All" class="w-4 h-4 mr-2 inline-block"> 전 제품
+            </button>
+            <button class="filter-btn filter-btn-nuke px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2" onclick="window.location.href = 'nuke.html'">
+                <img src="images/ICON_NUKE_yellow.svg" alt="Nuke" class="w-4 h-4"> Nuke
+            </button>
+            <button class="filter-btn filter-btn-katana px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2 active">
+                <img src="images/ICON_KATANA_yellow.svg" alt="Katana" class="w-4 h-4"> Katana
+            </button>
+            <button class="filter-btn filter-btn-mari px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2" onclick="window.location.href = 'mari.html'">
+                <img src="images/ICON_MARI_yellow.svg" alt="Mari" class="w-4 h-4"> Mari
+            </button>
+        </div>
+    </div>
+</header>
+<main class="relative bg-bg-main">
+    <div class="absolute inset-0 pointer-events-none bg-[size:40px_40px] opacity-[0.03]" style="background-image: linear-gradient(to right, #000000 1px, transparent 1px), linear-gradient(to bottom, #000000 1px, transparent 1px);"></div>
+    <div id="timeline-container" class="max-w-7xl mx-auto relative pb-32 pt-20">
+        <div class="timeline-wire"></div>
+        <div class="timeline-wire-active"></div>
+        <!-- Timeline content will be injected here by main.js -->
+    </div>
+</main>
+
+ <!-- Feature Section START -->
+ <div class="relative w-full mt-12 pb-24">
+    <div class="w-full bg-[#121212] border border-brand-katana/30 border-l-0 border-r-0 overflow-hidden shadow-2xl relative">
+     <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-katana to-transparent"></div>
+     <div class="flex flex-col md:flex-row">
+       
+       <!-- Left / Top Image Area -->
+       <div class="w-full md:w-4/12 min-h-[250px] md:h-auto bg-[#151515] relative overflow-hidden flex items-center justify-center">
+         <div 
+           class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
+           style="background-image: url('https://img.youtube.com/vi/lOiSccM5PGk/maxresdefault.jpg');"
+         ></div>
+         
+         <!-- Absolute Positioned LATEST Mark -->
+         <div class="absolute top-12 left-1/2 transform -translate-x-1/2 z-20">
+            <span class="text-[12px] font-bold text-gray-500 uppercase tracking-widest border border-gray-200 px-2 py-1 rounded bg-gray-50">LATEST</span>
+         </div>
+
+         <div class="relative z-10 p-8 text-center pt-24"> <!-- Added pt-24 to push content down -->
+           <div class="mb-4 md:mb-6">
+             <img src="images/ICON_KATANA_yellow.svg" alt="Katana" class="w-16 h-16 md:w-20 md:h-20 mx-auto">
+           </div>
+           <h3 class="text-brand-katana font-bold tracking-wider text-xs md:text-sm uppercase mb-2">Current Release</h3>
+           <p class="text-white text-2xl md:text-3xl font-bold font-display">Katana 9.0v1</p>
+         </div>
+       </div>
+
+       <!-- Right Content Area -->
+       <div class="w-full md:w-8/12 p-6 md:p-14 bg-gradient-to-br from-[#121212] to-[#0a0a0a]">
+         <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">UsdSuperLayer</h2>
+         <p class="text-gray-500 text-sm mb-6">Released Q1 2026</p>
+         <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8">
+            Katana 9.0은 새로운 UsdSuperLayer를 도입하여 파이프라인 전반에 유연성과 확장성, 완벽한 통합된 환경을 제공합니다. Katana 내에서 빠르게 어떠한 Prim도 생성 및 편집할 수 있으며, UsdSuperLayer 프레임워크를 기반으로 미래를 위한 특화된 맞춤형 툴을 구축해 보세요. 이는 Katana USD 진화의 차세대 도약입니다.
+         </p>
+         
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 mb-10">
+           <!-- List Items with CheckCircle -->
+           <div class="flex items-center gap-3 text-gray-400 text-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-katana shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+             <span>USD 25.08</span>
+           </div>
+           <div class="flex items-center gap-3 text-gray-400 text-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-katana shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+             <span>UsdSuperLayer</span>
+           </div>
+           <div class="flex items-center gap-3 text-gray-400 text-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-katana shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+             <span>UsdGaffer</span>
+           </div>
+           <div class="flex items-center gap-3 text-gray-400 text-sm">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-katana shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+             <span>UsdMaterial</span>
+           </div>
+           <div class="flex items-center gap-3 text-gray-400 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-katana shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Hydra 2.0 rendering(alpha)</span>
+          </div>
+        </div>
+
+         <div class="flex flex-wrap gap-4">
+           <button class="flex-1 sm:flex-none px-6 py-2.5 bg-brand-katana hover:bg-[#ff9d00] text-black font-bold rounded text-sm transition-colors shadow-lg shadow-brand-katana/20 text-center" onclick="window.open('https://www.youtube.com/watch?v=lOiSccM5PGk', '_blank')">
+             Watch Demo
+           </button>
+           <button class="flex-1 sm:flex-none px-6 py-2.5 bg-transparent border border-white/20 text-white font-medium rounded text-sm hover:bg-white/5 transition-colors flex items-center justify-center gap-2" onclick="window.open('https://campaigns.foundry.com/products/katana/whats-new', '_blank')">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+             Katana 9.0 살펴보기
+           </button>
+         </div>
+       </div>
+
+     </div>
+   </div>
+ </div>
+ <!-- Feature Section END -->
+
+<button id="goToTopBtn" class="fixed bottom-8 right-8 bg-black/80 hover:bg-black text-white p-3 rounded-full shadow-lg transition-all duration-300 z-50 hidden" aria-label="Go to top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script src="common.js"></script>
+<script src="timeline-utils.js"></script>
+<script src="katana.js"></script>
+
+</body></html>

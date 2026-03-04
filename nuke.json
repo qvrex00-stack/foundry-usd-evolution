@@ -1,0 +1,169 @@
+[
+    {
+        "product": "nuke",
+        "version": "13.0v10",
+        "date": "2021-03-25",
+        "quarter": "Q1 2021",
+        "title": "USD 지원",
+        "description": "3D 뷰어에 Hydra 지원을 추가하며, Camera, Light, Axis 데이터를 USD로 불러올 수 있습니다.",
+        "tags": [
+            "USD 20.08",
+            "ReadGeo",
+            "Camera",
+            "Light",
+            "Axis"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_13.0.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/fx19tSzHWWE/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=fx19tSzHWWE",
+        "supported": false
+    },
+    {
+        "product": "nuke",
+        "version": "13.1v5",
+        "date": "2021-11-23",
+        "quarter": "Q3 2021",
+        "title": "3D UX 개선",
+        "description": "3D 핸들을 전면 재설계하여 사용 편의성을 높이고 기능을 확장했습니다.",
+        "tags": [
+            "ReadGeo",
+            "USD 20.08"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_13.1.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/6UgANaX7n2Y/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=6UgANaX7n2Y",
+        "status": "Beta",
+        "supported": false
+    },
+    {
+        "product": "nuke",
+        "version": "13.2v9",
+        "date": "2022-04-14",
+        "quarter": "Q1 2022",
+        "title": "Hydra Support",
+        "description": "더욱 개선된 3D UX로 지오메트리를 더 빠르게 조정하세요.",
+        "tags": [
+            "ReadGeo",
+            "USD 20.08"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_13.2.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/LslcwXIkV9M/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=LslcwXIkV9M",
+        "status": "Beta",
+        "supported": false
+    },
+    {
+        "product": "nuke",
+        "version": "14.0v8",
+        "date": "2022-12-06",
+        "quarter": "Q4 2022",
+        "title": "Nuke 14.0: USD기반의 새로운 3D 시스템 도입",
+        "description": "Nuke의 3D 시스템을 전면 개편하여 새로운 USD 기반 3D 시스템을 도입했습니다. 대규모의 3D 씬도 효율적으로 작업할 수 있습니다.",
+        "tags": [
+            "GeoImport",
+            "GeoMerge",
+            "GeoScene",
+            "USD 22.05"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_14.0.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/77Wh7ekKx3E/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=uutRLOJ20Jk",
+        "status": "Beta",
+        "supported": false
+    },
+    {
+        "product": "nuke",
+        "version": "15.0v8",
+        "date": "2023-10-12",
+        "quarter": "Q4 2023",
+        "title": "USD기반의 새로운 3D 시스템 도입 2단계",
+        "description": "지속적으로 진화하는 새로운 네이티브 3D 시스템과, 여러분의 작업 효율을 높이기 위해 설계된 다양한 개선 사항들이 포함되어 있습니다.",
+        "tags": [
+            "USD 23.05",
+            "GeoMerge",
+            "ScanlineRender2",
+            "3D Selection",
+            "SceneGraph Popup"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_15.0.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/QJB39C9MYhE/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=QJB39C9MYhE",
+        "status": "Beta",
+        "supported": true
+    },
+    {
+        "product": "nuke",
+        "version": "v15.1",
+        "date": "2024-06-13",
+        "quarter": "Q2 2024",
+        "title": "USD기반의 새로운 3D 시스템 도입 3단계",
+        "description": "향상된 3D 스테이지 빌딩 성능과 타임 리매핑",
+        "tags": [
+            "USD 23.11",
+            "GeoUVProject",
+            "FrameHole",
+            "TimeOffset"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_15.1.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/GiPVGFZmTMo/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=GiPVGFZmTMo",
+        "status": "Beta",
+        "supported": true
+    },
+    {
+        "product": "nuke",
+        "version": "v16.0",
+        "date": "2025-02-27",
+        "quarter": "Q1 2025",
+        "title": "USD기반의 새로운 3D 시스템 도입 4단계",
+        "description": "새로운 3D 시스템의 개발이 지속됨에 따라, 당사는 사용자 피드백을 반영하여 여러분이 가장 자주 사용하는 노드들을 업데이트하는 데 주력했습니다. 아울러 이와 관련된 새로운 기능과 워크플로우도 함께 선보입니다.",
+        "tags": [
+            "USD 24.05",
+            "GeoXformPrim",
+            "GeoConstrain",
+            "ScanlineRender2"
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_16.0.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/YTUm3Ebxo-c/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=YTUm3Ebxo-c",
+        "status": "Beta",
+        "supported": true
+    },
+    {
+        "product": "nuke",
+        "version": "v17.0",
+        "date": "2026-02-26",
+        "quarter": "Q1 2026",
+        "title": "현대화된 3D 시스템의 도입",
+        "description": "VFX의 미래를 이끌 기술을 여러분의 합성 툴킷에 추가해 보세요. Splat을 활용한 고품질 3D 렌더링, 인카메라용 매트 페인팅, 또는 하이엔드 VFX 등 어떤 작업을 하든 현대 프로덕션의 요구 사항을 충족하는 동시에 창의적인 제어력을 되찾으십시오.",
+        "tags": [
+            "USD 25.08",
+            "Projections",
+            "Lighting",
+            "Rendering",
+            "Materials&Shading",
+            "Masks&Paths"                        
+        ],
+        "icon": "images/ICON_NUKE_yellow.svg",
+        "link": "https://learn.foundry.com/nuke/content/release_notes/nuke_17.0.html",
+        "featured": true,
+        "image": "https://img.youtube.com/vi/JuPSYQqXfoE/maxresdefault.jpg",
+        "content": "https://www.youtube.com/watch?v=JuPSYQqXfoE",
+        "status": "Official",
+        "supported": true
+    }
+]

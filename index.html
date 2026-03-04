@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Foundry USD Evolution Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "bg-main": "#FFFFFF",
+                        "surface-card": "#FFFFFF",
+                        "border-dim": "#E5E7EB",
+                        "primary": "#2b8cee",
+                        "nuke": "#fcb434",
+                        "katana": "#fcb434", 
+                        "mari": "#fcb434"
+                    },
+                    fontFamily: {
+                        "sans": ["Avenir", "Inter", "sans-serif"],
+                        "display": ["Avenir", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #E5E7EB 1px, transparent 1px), linear-gradient(to bottom, #E5E7EB 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.6' },
+                            '50%': { opacity: '0.3' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #FFFFFF;
+            color: #1F2937;
+        }
+        .text-version-highlight {
+            color: #fcb434 !important;
+        }
+        .timeline-wire {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: #E5E7EB;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .timeline-wire-active {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100%; 
+            background: linear-gradient(to bottom, transparent, #f5b026, #e3e300, #c43c3c, #2b8cee, transparent);
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0.6;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card-base {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .card-base:hover {
+            transform: translateY(-4px);
+            border-color: #D1D5DB;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+        .card-nuke:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .card-katana:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .card-mari:hover { border-color: rgba(252, 180, 52, 0.4); box-shadow: 0 0 30px -10px rgba(252, 180, 52, 0.15); }
+        .year-marker {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #F3F4F6;
+            font-size: 5rem;
+            line-height: 1;
+            user-select: none;
+            transition: color 0.5s ease;
+            position: relative;
+            z-index: 2; /* Ensure it is above the wire */
+            background-color: #FFFFFF; /* Add background to hide the wire underneath */
+            padding: 0 10px; /* Add some padding so the wire doesn't touch the text */
+        }
+        .group:hover .year-marker {
+            color: #E5E7EB;
+        }
+        .milestone-dot {
+            width: 12px;
+            height: 12px;
+            background: #FFFFFF;
+            border: 2px solid #9CA3AF;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .group:hover .milestone-dot {
+            background: #FFFFFF;
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 15px currentColor;
+            border-color: currentColor;
+        }
+        .node-connector {
+            display: none;
+            position: absolute;
+            top: 50%;
+            width: 32px;
+            height: 3px;
+            background: #FCB434;
+            z-index: 5;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+        .right-aligned .node-connector { left: auto; right: 0; transform: translateX(100%); }
+        .left-aligned .node-connector { right: auto; left: 0; transform: translateX(-100%); }
+        .group:hover .node-connector {
+            width: 48px;
+            background: #FCB434;
+        }::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FFFFFF; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+        .nuke-btn {
+            background: linear-gradient(180deg, #F3F4F6 0%, #E5E7EB 100%);
+            border: 1px solid #D1D5DB;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .nuke-btn:hover {
+            background: linear-gradient(180deg, #E5E7EB 0%, #D1D5DB 100%);
+            color: #111827;
+        }
+        .nuke-btn:active {
+            background: #E5E7EB;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }.filter-btn {
+            background: rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: #4B5563;
+        }
+        .filter-btn:hover {
+            background: rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+            color: #111827;
+        }
+        .filter-btn-nuke:hover, .filter-btn-nuke.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+        .filter-btn-katana:hover, .filter-btn-katana.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+        .filter-btn-mari:hover, .filter-btn-mari.active {
+            border-color: #fcb434;
+            box-shadow: 0 0 15px rgba(252, 180, 52, 0.2);
+            color: #fcb434;
+        }
+
+        @media (min-width: 1024px) {
+            .node-connector {
+                width: 48px;
+            }
+            .group:hover .node-connector {
+                width: 64px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .milestone-dot {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+<body class="font-sans antialiased selection:bg-nuke selection:text-black overflow-x-hidden" onload="filterTimeline('all')">
+
+<header class="relative min-h-[30vh] flex items-center justify-center overflow-hidden border-b border-border-dim">
+    <div class="relative z-20 container mx-auto px-6 text-center max-w-4xl">
+        <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tighter leading-none text-gray-900 font-display" style="padding-top: 20px;">
+            USD X Foundry <span class="text-transparent bg-clip-text bg-gradient-to-r from-nuke via-gray-800 to-primary"></span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+            VFX 오픈 파이프라인의 핵심: Nuke, Katana, Mari의 USD 통합 연대기.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+            <button class="filter-btn filter-btn-all px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest hover:text-black border-transparent hover:border-black/10 active" onclick="filterTimeline('all')">
+                <img src="images/F-dot.svg" alt="All" class="w-4 h-4 mr-2 inline-block"> 전 제품
+            </button>
+            <button class="filter-btn filter-btn-nuke px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2" onclick="window.location.href = 'nuke.html'">
+                <img src="images/ICON_NUKE_yellow.svg" alt="Nuke" class="w-4 h-4"> Nuke
+            </button>
+            <button class="filter-btn filter-btn-katana px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2" onclick="window.location.href = 'katana.html'">
+                <img src="images/ICON_KATANA_yellow.svg" alt="Katana" class="w-4 h-4"> Katana
+            </button>
+            <button class="filter-btn filter-btn-mari px-6 py-2 rounded-full text-sm font-medium text-gray-500 uppercase tracking-widest flex items-center gap-2" onclick="window.location.href = 'mari.html'">
+                <img src="images/ICON_MARI_yellow.svg" alt="Mari" class="w-4 h-4"> Mari
+            </button>
+        </div>
+    </div>
+</header>
+<main class="relative bg-bg-main">
+    <div class="absolute inset-0 pointer-events-none bg-[size:40px_40px] opacity-[0.03]" style="background-image: linear-gradient(to right, #000000 1px, transparent 1px), linear-gradient(to bottom, #000000 1px, transparent 1px);"></div>
+    <div id="timeline-container" class="max-w-7xl mx-auto relative pb-32 pt-20">
+        <div class="timeline-wire"></div>
+        <div class="timeline-wire-active"></div>
+        <!-- Timeline content will be injected here by main.js -->
+    </div>
+</main>
+
+<button id="goToTopBtn" class="fixed bottom-8 right-8 bg-black/80 hover:bg-black text-white p-3 rounded-full shadow-lg transition-all duration-300 z-50 hidden" aria-label="Go to top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script src="common.js"></script>
+<script src="timeline-utils.js"></script>
+<script src="main.js"></script>
+
+</body></html>
