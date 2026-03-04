@@ -2,3 +2,10 @@ NOGO/
 firebase-debug.log
 .idx/
 .vscode/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
